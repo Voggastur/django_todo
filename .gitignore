@@ -1,2 +1,4 @@
 env.cpython-38.pyc
 env.py
+*.sqlite3
+__pycache__/
