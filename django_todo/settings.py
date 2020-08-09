@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import dj_database_url
-from .env import SECRET_KEY
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,13 +24,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECRET_KEY variable
-# SECRET_KEY = os.environ.get('SECRET_KEY')
-
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', 'htc^(xu7_1*mmi7&8)knt4@pa@u7jvv%u6por=5j(49qp**^nt')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME')]
 
 
 # Application definition
@@ -80,16 +79,11 @@ WSGI_APPLICATION = 'django_todo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 
 DATABASES = {
-    'default': dj_database_url.parse('postgres://svsjpperfhgfkn:b38ac0dec74d380a1cda5cb171db6b105e49625fa336aae7fc5170c5ab899392@ec2-54-75-229-28.eu-west-1.compute.amazonaws.com:5432/d1fgnnomido7sp')
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
